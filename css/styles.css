@@ -1,0 +1,77 @@
+.navbar{
+    background: steelblue;
+    display: flex;
+    color: white;
+}
+
+.navbar > h1{
+    margin-left: 5px;
+}
+.nav_items{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin-left: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    background: #F39D41;
+    border-style: dotted;
+}
+
+.nav_items > li{
+  cursor: pointer;
+  font-size: 14pt;
+  margin: 25px;
+  
+}
+
+a{
+    color: white;
+    text-decoration:none;
+}
+
+.nav_items > li:hover{
+    text-decoration: underline;
+    
+  }
+
+.nav_link{
+    margin-right: 20px;
+}
+
+table, .add_btn_div,.back_btn_div, .new_book_div{
+    text-align: center;
+    width: 50%;
+    margin: 50px auto;
+}
+
+th,td{
+    border: 1px solid #eee;
+}
+
+tr:nth-child(odd){
+    background: rgb(124, 158, 190);
+}
+
+th{
+    background:#F39D41;
+}
+.new_book_div{
+    display: none;
+}
+
+.new_book_div > input{
+    display: block;
+    width: 50%;
+    margin: 20px auto;
+    align-items: center;
+}
+
+.add_btn,.back_btn,#cancel_btn{
+    background: #F39D41;
+}
+
+#submit{
+    background: rgb(124, 158, 190); 
+}

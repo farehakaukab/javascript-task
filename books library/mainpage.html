@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Library Management System</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Library Management System</h1>
+        <ul class="nav_items">
+            <li class="nav_link"><a href="mainpage.html">Home</a></li>
+            <li class="nav_link"><a href="authors.html">Authors</a></li>
+            <li class="nav_link"><a href="publishers.html">Publishers</a></li>
+        </ul>
+    </div>
+
+    <div class="table">
+        <table id="books_table">
+            
+            <tr>
+                <th>Number</th>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Publisher</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="add_btn_div">
+        <input class="add_btn" type="button" value="Add New Book">
+    </div>
+
+    <div class="new_book_div">
+        <h1>Add New Book</h1>
+        <input id="bookName" type="text" placeholder="Book Name">
+        <input id="author" type="text" placeholder="Author Name">
+        <input id="publisher" type="text" placeholder="Publisher Name">
+        <input id="date" type="date" placeholder="mm/dd/yyyy">
+        <input id="submit" type="button" value="Submit" >
+        <input id="cancel_btn" type="button" value="Cancel">
+    </div>
+    <script src="/js/books_collection.js"></script>
+    <script src="/js/scripts.js"></script>
+    
+</body>
+</html>
