@@ -8,6 +8,7 @@ const new_book_div=document.querySelector(".new_book_div");
 var authorsInfo, publishersInfo;
 var editFlag=false;
 var authorName,publisherName='';
+var booksLib= getItemFromLocalStorage('booksLib');
 
 //function to populate table
 const populateTable = (books_data) => {
@@ -56,21 +57,25 @@ const populateTable = (books_data) => {
         rowCellLast.append(deleteButton);
         rowCellLast.append(editButton);    
     }
+
+    //populate authors and publishers array
+    populateAuthorsArray();
+    populatePublishersArray();
 }
 
 //populate authors collection
 const populateAuthorsArray= ()=>{
     //empty authorsInfo/publishersInfo
-    let temp_authorsInfo=[];
-    
+    authorsInfo=[];
+
     for(let book of booksLib){ 
-        const author_exists=temp_authorsInfo.some(author=>book.author==author.authorName);
+        const author_exists=authorsInfo.some(author=>book.author==author.authorName);
         
         if(!author_exists){
-            temp_authorsInfo.push({authorName: book.author, numberOfBooks: 1 });
+            authorsInfo.push({authorName: book.author, numberOfBooks: 1 });
         }
         else{
-            for(let author of temp_authorsInfo){
+            for(let author of authorsInfo){
                 if(author.authorName==book.author){
                     author.numberOfBooks =  author.numberOfBooks + 1;
                     break;
@@ -78,23 +83,23 @@ const populateAuthorsArray= ()=>{
             }
         }
     }
-    return temp_authorsInfo;
     
+    setLocalStorage('authorsInfo',authorsInfo);
 }
 
 //populate publishers collection
 const populatePublishersArray= ()=>{
     //empty authorsInfo/publishersInfo
-    let temp_publishersInfo=[];
+    publishersInfo=[];
     for(let book of booksLib){
-        let publisher_exists=temp_publishersInfo.some(publisher=>book.publisher==publisher.publisherName);
+        let publisher_exists=publishersInfo.some(publisher=>book.publisher==publisher.publisherName);
         
         if(!publisher_exists){
-            temp_publishersInfo.push({publisherName: book.publisher, numberOfBooks: 1 });
+            publishersInfo.push({publisherName: book.publisher, numberOfBooks: 1 });
         }
 
         else{
-            for(let publisher of temp_publishersInfo){
+            for(let publisher of publishersInfo){
                 if(publisher.publisherName==book.publisher){
                     publisher.numberOfBooks =  publisher.numberOfBooks + 1;
                     break;
@@ -102,7 +107,7 @@ const populatePublishersArray= ()=>{
             }
         }
     }
-    return temp_publishersInfo;
+    setLocalStorage('publishersInfo',publishersInfo);
 }
 
 //get book title to specify the index of object at which the book info is placed
@@ -134,7 +139,6 @@ const deleteBookFromAuthorsCollection=(nameOfAuthor)=>{
     authorsInfo= getItemFromLocalStorage('authorsInfo');
     
     for(let author in authorsInfo){
-        console.log(author.authorName);
         if(author.authorName==nameOfAuthor){
             if(author.numberOfBooks==1)
                 return authorsInfo.splice(index,1);
@@ -274,10 +278,6 @@ document.addEventListener("click", function(e){
         setLocalStorage('publishersInfo',publishersInfo);
         
         populateTable(booksLib);
-        authorsInfo=populateAuthorsArray();
-        publishersInfo=populatePublishersArray();
-        setLocalStorage('authorsInfo',authorsInfo);
-        setLocalStorage('publishersInfo',publishersInfo);
     }
     
     //Edit Book
@@ -285,7 +285,9 @@ document.addEventListener("click", function(e){
         if(!editFlag){
             editFlag=true;
             e.target.value="Done";
+            //get title of book to be added
             selectedBookTitle= getBookTitle(e);
+            //show editable fields
             showEditFields(e);
         }
     }
@@ -294,12 +296,9 @@ document.addEventListener("click", function(e){
         editFlag=false;
         if(editBookInfo(selectedBookTitle, e)){
             e.target.value="Edit";
+            //update booksLib in local storage
             setLocalStorage('booksLib',booksLib);
             populateTable(booksLib);
-            authorsInfo=populateAuthorsArray();
-            publishersInfo=populatePublishersArray();
-            setLocalStorage('authorsInfo',authorsInfo);
-            setLocalStorage('publishersInfo',publishersInfo);
         }
 
     }
@@ -313,13 +312,9 @@ document.addEventListener("click", function(e){
     else if(e.target.value=="Submit"){
         try{
             if(addBook()){
-                //add book in the book_library
+                //update booksLib in local storage
                 setLocalStorage('booksLib',booksLib); 
-                populateTable(booksLib);
-                authorsInfo=populateAuthorsArray();
-                publishersInfo=populatePublishersArray();
-                setLocalStorage('authorsInfo',authorsInfo);
-                setLocalStorage('publishersInfo',publishersInfo);
+                populateTable(booksLib);    
             }
         }
         catch(e){
@@ -338,11 +333,6 @@ document.addEventListener("click", function(e){
 });
 
 
-
-var booksLib= getItemFromLocalStorage('booksLib');
 populateTable(booksLib);
-authorsInfo=populateAuthorsArray();
-publishersInfo=populatePublishersArray();
-setLocalStorage('authorsInfo',authorsInfo);
-setLocalStorage('publishersInfo',publishersInfo);
+
 

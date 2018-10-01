@@ -71,8 +71,10 @@ document.addEventListener("click", function(e){
     if(e.target.value=="Delete"){
         publishersInfo= deletePublisher(getPublisherName(e));
         setLocalStorage('publishersInfo',publishersInfo);
+        
         booksLib=deleteBooksOfPublisher(getPublisherName(e));
         setLocalStorage('booksLib',booksLib);
+        
         populateTable(publishersInfo);
     }
 });

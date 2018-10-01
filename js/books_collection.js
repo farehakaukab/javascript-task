@@ -1,8 +1,6 @@
-//declarations
-var booksLibrary,allAuthorsInfo, allPublishersInfo=[];
 
 //Json object for books
-booksLibrary=[
+const booksLibrary=[
     {
         "title": "Frankestein",
         "author": "Marry Shelly",
@@ -46,6 +44,7 @@ booksLibrary=[
     }
 ]
 
+
 const setLocalStorage=(name, data)=>{
     localStorage.setItem(name, JSON.stringify(data));
 }
@@ -59,13 +58,14 @@ try {
         setLocalStorage('booksLib', booksLibrary); 
     } 
     if(!getItemFromLocalStorage('authorsInfo')){
-        setLocalStorage('authorsInfo',allAuthorsInfo);
+        setLocalStorage('authorsInfo',[]);
     } 
     if(!getItemFromLocalStorage('publishersInfo')){
-        setLocalStorage('publishersInfo', allPublishersInfo);
+        setLocalStorage('publishersInfo', []);
     }
     
 } catch (e) {
     alert('Local Storage not available');
 }
  
+
